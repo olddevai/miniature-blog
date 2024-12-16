@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../../utils/date';
+import { getReadingTime } from '../../utils/reading-time';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  featured?: boolean;
+}
+
+const { post, featured = false } = Astro.props;
+const { remarkPluginFrontmatter } = await post.render();
+const readingTime = getReadingTime(remarkPluginFrontmatter.minutesRead || '');
+---
+
+<article class={`bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 ${featured ? 'lg:col-span-2 lg:row-span-2' : ''}`}>
+  <a href={`/blog/${post.slug}/`} class="block">
+    <img
+      src={post.data.heroImage}
+      alt=""
+      class={`w-full object-cover ${featured ? 'h-96' : 'h-48'}`}
+    />
+    <div class="p-6">
+      <div class="flex items-center text-sm text-slate-500 dark:text-slate-400 mb-2">
+        <time datetime={post.data.pubDate.toISOString()}>
+          {formatDate(post.data.pubDate)}
+        </time>
+        <span class="mx-2">•</span>
+        <span>{readingTime}</span>
+      </div>
+      <h2 class={`font-semibold text-slate-900 dark:text-white mb-2 ${featured ? 'text-2xl' : 'text-xl'}`}>
+        {post.data.title}
+      </h2>
+      <p class="text-slate-500 dark:text-slate-400 line-clamp-2">
+        {post.data.description}
+      </p>
+    </div>
+  </a>
+</article>

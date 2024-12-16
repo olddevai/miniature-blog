@@ -1,0 +1,26 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import Container from '../common/Container.astro';
+import Button from '../common/Button.astro';
+---
+
+<section class="relative isolate overflow-hidden">
+  <Container class="pb-24 pt-10 sm:pb-32 lg:flex lg:py-40">
+    <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8">
+      <h1 class="mt-10 text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-6xl">
+        Welcome to {SITE_TITLE}
+      </h1>
+      <p class="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-400">
+        {SITE_DESCRIPTION}
+      </p>
+      <div class="mt-10 flex items-center gap-x-6">
+        <Button href="/blog" variant="primary" size="lg">
+          Read the Blog
+        </Button>
+        <Button href="/about" variant="secondary" size="lg">
+          Learn More <span aria-hidden="true" class="ml-2">→</span>
+        </Button>
+      </div>
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --accent: #0ea5e9;
+    --accent-dark: #0369a1;
+  }
+
+  body {
+    @apply antialiased;
+  }
+}
+
+.prose {
+  @apply max-w-none;
+}
+
+.prose a {
+  @apply text-primary-600 dark:text-primary-400 no-underline hover:underline;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply text-slate-900 dark:text-white;
+}
+
+.prose p,
+.prose li {
+  @apply text-slate-600 dark:text-slate-400;
+}
+
+.prose code {
+  @apply rounded-md bg-slate-100 px-1 py-0.5 text-slate-800 dark:bg-slate-800 dark:text-slate-200;
+}
+
+.prose pre {
+  @apply rounded-lg bg-slate-900 dark:bg-slate-800;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-white;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-primary-500;
+}
+
+.prose img {
+  @apply rounded-lg shadow-lg;
+}
+
+.prose table {
+  @apply border-collapse border border-slate-200 dark:border-slate-700;
+}
+
+.prose th,
+.prose td {
+  @apply border border-slate-200 dark:border-slate-700 px-4 py-2;
+}
+
+.prose thead {
+  @apply bg-slate-50 dark:bg-slate-800;
+}
+
+.prose thead th {
+  @apply font-semibold text-slate-900 dark:text-white;
+}

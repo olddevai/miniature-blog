@@ -1,0 +1,26 @@
+---
+import { SITE_TITLE } from '../../consts';
+import Container from '../common/Container.astro';
+import Navigation from './Navigation.astro';
+import ThemeToggle from '../ThemeToggle.astro';
+import Search from '../Search.astro';
+---
+
+<header class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white/95 dark:bg-slate-900/75">
+  <Container>
+    <div class="py-4">
+      <div class="relative flex items-center">
+        <a class="mr-3 flex-none w-[2.0625rem] overflow-hidden md:w-auto" href="/">
+          <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400">{SITE_TITLE}</h2>
+        </a>
+        <div class="relative hidden lg:flex items-center ml-auto">
+          <Navigation />
+          <div class="flex items-center border-l border-slate-200 ml-6 pl-6 dark:border-slate-800">
+            <Search />
+            <ThemeToggle />
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</header>

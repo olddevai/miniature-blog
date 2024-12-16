@@ -1,0 +1,58 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+import readingTime from 'reading-time';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body class="bg-white dark:bg-slate-900">
+    <Header />
+    <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-8">Blog Posts</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map(async (post) => {
+          const { remarkPluginFrontmatter } = await post.render();
+          const readingStats = readingTime(remarkPluginFrontmatter.minutesRead || '');
+          
+          return (
+            <article class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <a href={`/blog/${post.slug}/`} class="block">
+                <img
+                  src={post.data.heroImage}
+                  alt=""
+                  class="h-48 w-full object-cover"
+                />
+                <div class="p-6">
+                  <div class="flex items-center text-sm text-slate-500 dark:text-slate-400 mb-2">
+                    <FormattedDate date={post.data.pubDate} />
+                    <span class="mx-2">•</span>
+                    <span>{readingStats.text}</span>
+                  </div>
+                  <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+                    {post.data.title}
+                  </h2>
+                  <p class="text-slate-500 dark:text-slate-400 line-clamp-2">
+                    {post.data.description}
+                  </p>
+                </div>
+              </a>
+            </article>
+          );
+        })}
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Container from '../common/Container.astro';
+import PostCard from '../blog/PostCard.astro';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+<section class="bg-white dark:bg-slate-800 py-24 sm:py-32">
+  <Container>
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+        Latest Posts
+      </h2>
+      <p class="mt-2 text-lg leading-8 text-slate-600 dark:text-slate-400">
+        Check out our most recent blog posts
+      </p>
+    </div>
+    <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+      {posts.map((post, index) => (
+        <PostCard post={post} featured={index === 0} />
+      ))}
+    </div>
+  </Container>
+</section>
